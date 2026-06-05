@@ -1,0 +1,28 @@
+{
+  "description": "Ascend NPU migration agent hooks - injects migration rules on session start and validates code changes post-edit",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-start.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/post-edit.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
